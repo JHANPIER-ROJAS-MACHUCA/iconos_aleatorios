@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iconos Aleatorios — Bootstrap 5</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Tu CSS -->
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <header class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
+      <h1 class="h3 mb-3 mb-md-0">Iconos aleatorios</h1>
+      <div class="d-flex gap-2">
+        <input id="countInput" type="number" class="form-control" value="12" min="1" max="48" style="width:110px">
+        <button id="shuffleBtn" class="btn btn-primary">Barajar</button>
+      </div>
+    </header>
+
+    <p class="text-muted mb-4">
+      Genera iconos aleatorios usando <strong>Bootstrap Icons</strong>.  
+      Los nombres se muestran en <strong>español</strong>.
+    </p>
+
+    <main>
+      <div id="iconsGrid" class="row g-3">
+        <!-- Aquí aparecen los iconos -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Lista de iconos con nombres en español
+    const ICONS = [
+      { cls: "bi-alarm", nombre: "Alarma" },
+      { cls: "bi-bag", nombre: "Bolsa" },
+      { cls: "bi-battery-charging", nombre: "Batería cargando" },
+      { cls: "bi-bell", nombre: "Campana" },
+      { cls: "bi-camera-video", nombre: "Cámara de video" },
+      { cls: "bi-cart", nombre: "Carrito" },
+      { cls: "bi-chat-dots", nombre: "Chat" },
+      { cls: "bi-cloud-arrow-up", nombre: "Subir a la nube" },
+      { cls: "bi-cpu", nombre: "Procesador" },
+      { cls: "bi-cup", nombre: "Taza" },
+      { cls: "bi-gear", nombre: "Engranaje" },
+      { cls: "bi-gift", nombre: "Regalo" },
+      { cls: "bi-globe", nombre: "Globo terráqueo" },
+      { cls: "bi-heart", nombre: "Corazón" },
+      { cls: "bi-house", nombre: "Casa" },
+      { cls: "bi-lightning", nombre: "Rayo" },
+      { cls: "bi-music-note", nombre: "Nota musical" },
+      { cls: "bi-person", nombre: "Persona" },
+      { cls: "bi-search", nombre: "Buscar" },
+      { cls: "bi-star", nombre: "Estrella" },
+      { cls: "bi-sun", nombre: "Sol" },
+      { cls: "bi-moon", nombre: "Luna" },
+      { cls: "bi-truck", nombre: "Camión" },
+      { cls: "bi-umbrella", nombre: "Paraguas" },
+      { cls: "bi-wallet2", nombre: "Cartera" },
+      { cls: "bi-bicycle", nombre: "Bicicleta" },
+      { cls: "bi-briefcase", nombre: "Maletín" },
+      { cls: "bi-calendar", nombre: "Calendario" },
+      { cls: "bi-car-front", nombre: "Automóvil" },
+      { cls: "bi-diamond", nombre: "Diamante" },
+      { cls: "bi-display", nombre: "Pantalla" },
+      { cls: "bi-envelope", nombre: "Sobre" },
+      { cls: "bi-film", nombre: "Película" },
+      { cls: "bi-fire", nombre: "Fuego" },
+      { cls: "bi-flag", nombre: "Bandera" },
+      { cls: "bi-graph-up", nombre: "Gráfico" },
+      { cls: "bi-hammer", nombre: "Martillo" },
+      { cls: "bi-key", nombre: "Llave" },
+      { cls: "bi-laptop", nombre: "Laptop" },
+      { cls: "bi-link-45deg", nombre: "Enlace" },
+      { cls: "bi-lock", nombre: "Candado" },
+      { cls: "bi-map", nombre: "Mapa" },
+      { cls: "bi-phone", nombre: "Teléfono" },
+      { cls: "bi-play-btn", nombre: "Reproducir" },
+      { cls: "bi-printer", nombre: "Impresora" },
+      { cls: "bi-shield-lock", nombre: "Escudo" },
+      { cls: "bi-sliders", nombre: "Controles" },
+      { cls: "bi-thermometer", nombre: "Termómetro" }
+    ];
+
+    const grid = document.getElementById('iconsGrid');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const countInput = document.getElementById('countInput');
+
+    function getRandomIcons(n) {
+      const pool = [...ICONS];
+      const result = [];
+      n = Math.max(1, Math.min(n, pool.length));
+      for (let i = 0; i < n; i++) {
+        const idx = Math.floor(Math.random() * pool.length);
+        result.push(pool.splice(idx, 1)[0]);
+      }
+      return result;
+    }
+
+    function renderIcons(n = 12) {
+      const icons = getRandomIcons(n);
+      grid.innerHTML = '';
+      icons.forEach(icon => {
+        const col = document.createElement('div');
+        col.className = 'col-6 col-sm-4 col-md-3 col-lg-2';
+        col.innerHTML = `
+          <div class="icon-card p-3 text-center rounded shadow-sm h-100">
+            <i class="bi ${icon.cls} display-5"></i>
+            <small class="mt-2 d-block">${icon.nombre}</small>
+          </div>
+        `;
+        grid.appendChild(col);
+      });
+    }
+
+    shuffleBtn.addEventListener('click', () => {
+      const n = parseInt(countInput.value, 10) || 12;
+      renderIcons(n);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => renderIcons(12));
+  </script>
+</body>
+</html>
